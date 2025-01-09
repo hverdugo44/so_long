@@ -6,11 +6,11 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:05:04 by hverdugo          #+#    #+#             */
-/*   Updated: 2024/12/27 17:45:49 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:11:07 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../INC/so_long.h"
 
 static int	size_map(t_game **map)
 {
@@ -49,6 +49,7 @@ static char	**do_map(char *str)
 	char	*temp;
 	char	**map1;
 
+	map = NULL;
 	fd = open(str, O_RDONLY);
 	str1 = get_next_line(fd);
 	temp = get_next_line(fd);
@@ -132,16 +133,4 @@ t_game	*evaluador(char *str)
 	}
 	free_mat(copy);
 	return(map);
-}
-
-int	main(int argc, char **argv)
-{
-	t_game	*game;
-
-	if (argc != 2)
-		return (0);
-	game = evaluador(argv[1]);
-	free_mat(game->map);
-	free(game);
-	return (0);
 }

@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack.c                                            :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/24 14:29:31 by hverdugo          #+#    #+#             */
-/*   Updated: 2024/12/24 14:41:34 by hverdugo         ###   ########.fr       */
+/*   Created: 2024/12/25 21:33:56 by hverdugo          #+#    #+#             */
+/*   Updated: 2025/01/09 13:13:11 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../INC/so_long.h"
 
-void	free_mat(char **str)
+char	**copy_mat(char **str)
 {
+	char	**copy;
 	int	i;
 
 	i = 0;
+	copy = (char **)ft_calloc(sizeof(char *), (mat_len(str) + 1));
+	if (!copy)
+		return (NULL);
 	while (str[i])
 	{
-		free(str[i]);
+		copy[i] = ft_strdup(str[i]);
 		i++;
 	}
-	free(str);
-}
-
-int	mat_len(char **mat)
-{
-	int	i;
-
-	i = 0;
-	while (mat[i])
-		i++;
-	return (i);
+	return (copy);
 }

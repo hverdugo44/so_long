@@ -6,11 +6,11 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 16:18:50 by hverdugo          #+#    #+#             */
-/*   Updated: 2024/12/24 12:49:53 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/09 13:13:46 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../INC/so_long.h"
 
 static char	*ft_strjoint(char *s1, char *s2)
 {

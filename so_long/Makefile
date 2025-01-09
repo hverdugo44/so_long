@@ -6,17 +6,17 @@
 #    By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/24 14:56:26 by hverdugo          #+#    #+#              #
-#    Updated: 2024/12/25 21:40:33 by hverdugo         ###   ########.fr        #
+#    Updated: 2025/01/09 14:12:45 by hverdugo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-SRC = get_next_line.c stack.c eval.c utils1.c
+SRC = SRC/get_next_line.c SRC/stack.c SRC/eval.c SRC/utils1.c SRC/main.c
 
 LIBFT = libft.a
 
-INCLUDE = so_long.h
+INCLUDE = INC/so_long.h INC/libft.h
 
 FLAGS = -Wall -Wextra -Werror -g
 
@@ -30,11 +30,14 @@ libft_compile:
 	make -C libft
 	cp libft/libft.a .
 
-$(NAME): $(OFILES) $(INCLUDE) Makefile
-	$(CC) $(FLAGS) $(OFILES) libft.a -o $(NAME)
+$(NAME): $(OFILES)
+	$(CC) $(OFILES) libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+
+/*$(NAME): $(OFILES) $(INCLUDE) Makefile
+	$(CC) $(OFILES) libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)*/
 
 %.o: %.c $(INCLUDE)
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean:
 	make clean -C libft
