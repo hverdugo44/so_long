@@ -6,13 +6,13 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:05:04 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/09 14:11:07 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:15:37 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INC/so_long.h"
 
-static int	size_map(t_game **map)
+int	size_map(t_game **map)
 {
 	int	i;
 
@@ -41,7 +41,7 @@ static int	size_map(t_game **map)
 	return (0);
 }
 
-static char	**do_map(char *str)
+char	**do_map(char *str)
 {
 	int		fd;
 	char	*str1;
@@ -67,7 +67,7 @@ static char	**do_map(char *str)
 	return (map1);
 }
 
-static void	find_collect(t_game *game)
+void	find_collect(t_game *game)
 {
 	int	i;
 	int	j;
@@ -94,7 +94,7 @@ static void	find_collect(t_game *game)
 	game->collect = c;
 }
 
-static int	find_path(char **map, int *collect, int px, int py)
+int	find_path(char **map, int *collect, int px, int py)
 {
 	if (map[py][px] == 'C' || map[py][px] == 'E')
 		collect[0]--;
@@ -122,15 +122,7 @@ t_game	*evaluador(char *str)
 	find_collect(map);
 	copy = copy_mat(map->map);
 	m = map->collect + 1;
-	if ((find_path(copy, &m, map->px, map->py) != 0) || size_map(&map) != 0
-		|| ft_strncmp(&str[ft_strlen(str) - 4], ".ber", 4) != 0)
-	{
-		perror("Map Error");
-		free_mat(map->map);
-		free_mat(copy);
-		free(map);
-		exit(1);
-	}
+	handle_error(copy, str, map, m);
 	free_mat(copy);
-	return(map);
+	return (map);
 }

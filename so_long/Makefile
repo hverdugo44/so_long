@@ -6,13 +6,13 @@
 #    By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/24 14:56:26 by hverdugo          #+#    #+#              #
-#    Updated: 2025/01/09 14:12:45 by hverdugo         ###   ########.fr        #
+#    Updated: 2025/01/11 16:06:10 by hverdugo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-SRC = SRC/get_next_line.c SRC/stack.c SRC/eval.c SRC/utils1.c SRC/main.c
+SRC = SRC/get_next_line.c SRC/stack.c SRC/eval.c SRC/utils1.c SRC/main.c SRC/imagenes.c
 
 LIBFT = libft.a
 
@@ -24,13 +24,16 @@ CC = cc
 
 OFILES = $(SRC:.c=.o)
 
-all: libft_compile $(NAME)
+all: mlx_compile libft_compile $(NAME)
+
+mlx_compile:
+	make -C mlx_linux
 
 libft_compile:
 	make -C libft
 	cp libft/libft.a .
 
-$(NAME): $(OFILES)
+$(NAME): $(OFILES) $(INCLUDE) Makefile
 	$(CC) $(OFILES) libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 /*$(NAME): $(OFILES) $(INCLUDE) Makefile
@@ -41,10 +44,12 @@ $(NAME): $(OFILES)
 
 clean:
 	make clean -C libft
+	make clean -C mlx_linux
 	rm -rf $(OFILES)
 
 fclean:
 	make fclean -C libft
+	make clean -C mlx_linux
 	rm -rf $(NAME) $(OFILES) libft.a
 
 re:
