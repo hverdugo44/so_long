@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:10:10 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/11 16:23:22 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/11 23:12:12 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,16 @@
 # include <stdbool.h>
 # include <mlx.h>
 
-# define UP      13
-# define DOWN    1
-# define LEFT    0
-# define RIGHT   2
-# define ESC     53
-# define IMG_PXL 32
-# define WND_NAME "so_long"
+# define UP			119
+# define AUP		65362
+# define DOWN		115
+# define ADOWN		65364
+# define LEFT		97
+# define ALEFT		65361
+# define RIGHT		100
+# define ARIGHT		65363
+# define ESC		65307
+# define IMG_PXL	50
 
 typedef struct s_game
 {
@@ -65,6 +68,14 @@ int		find_path(char **map, int *collect, int px, int py);
 void	free_error_map(t_game *map, char **copy);
 void	handle_error(char **copy, char *str, t_game *map, int m);
 
+void	move_right(t_game *gm, int move);
+void	move_left(t_game *gm, int move);
+void	move_down(t_game *gm, int move);
+void	move_up(t_game *gm, int move);
+void	ft_win(t_game *gm);
+int		close_program(t_game *gm);
+void	check_finish(int keycode, t_game *gm);
+int		pressed_key(int keycode, t_game *gm);
 void	images_to_win(t_game *gm);
 void	map_fill(t_game *gm, int x, int y);
 void	images(t_game *gm);

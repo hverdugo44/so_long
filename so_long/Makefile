@@ -6,13 +6,13 @@
 #    By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/24 14:56:26 by hverdugo          #+#    #+#              #
-#    Updated: 2025/01/11 16:06:10 by hverdugo         ###   ########.fr        #
+#    Updated: 2025/01/11 21:27:41 by hverdugo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-SRC = SRC/get_next_line.c SRC/stack.c SRC/eval.c SRC/utils1.c SRC/main.c SRC/imagenes.c
+SRC = SRC/get_next_line.c SRC/stack.c SRC/eval.c SRC/utils1.c SRC/main.c SRC/imagenes.c SRC/delete.c SRC/movments.c
 
 LIBFT = libft.a
 
@@ -33,14 +33,14 @@ libft_compile:
 	make -C libft
 	cp libft/libft.a .
 
+%.o: %.c $(INCLUDE)
+	$(CC) $(FLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+
 $(NAME): $(OFILES) $(INCLUDE) Makefile
-	$(CC) $(OFILES) libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OFILES) libft.a mlx_linux/libmlx.a mlx_linux/libmlx.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 /*$(NAME): $(OFILES) $(INCLUDE) Makefile
 	$(CC) $(OFILES) libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)*/
-
-%.o: %.c $(INCLUDE)
-	$(CC) $(FLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean:
 	make clean -C libft
