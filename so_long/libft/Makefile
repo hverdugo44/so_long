@@ -6,7 +6,7 @@
 #    By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 15:11:10 by hverdugo          #+#    #+#              #
-#    Updated: 2024/09/18 15:42:32 by hverdugo         ###   ########.fr        #
+#    Updated: 2025/01/16 13:11:51 by hverdugo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ NAME = libft.a
 all: $(NAME)
 
 $(NAME):$(OFILES) $(LIB) Makefile
-	ar crs $(NAME) $(OFILES)
+	@echo "Creando libreria"
+	@ar crs $(NAME) $(OFILES)
 
 bonus : $(BONUS_NAME)
 
@@ -39,13 +40,16 @@ $(BONUS_NAME):$(OFILES) $(OBONUS) $(LIB)
 	touch $(BONUS_NAME)
 
 %.o: %.c
-	cc $(flags) -c $< -o $@
+	@echo "Compilando O-Files"
+	@cc $(flags) -c $< -o $@
 
 clean:
-	rm -rf $(OFILES) $(OBONUS)
+	@echo "Eliminando O-Files"
+	@rm -rf $(OFILES) $(OBONUS)
 
 fclean:
-	rm -rf $(NAME) $(OFILES) $(OBONUS)
+	@echo "Eliminando Todo"
+	@rm -rf $(NAME) $(OFILES) $(OBONUS)
 
 re: fclean all
 

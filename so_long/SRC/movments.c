@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 21:00:09 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/11 21:53:07 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:05:18 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	move_up(t_game *gm, int move)
 			gm->map[gm->py - 1][gm->px] = '0';
 		}
 		mlx_put_image_to_window(gm->mlx, gm->win, gm->back, gm->px * IMG_PXL,
-		  gm->py * IMG_PXL);
+			gm->py * IMG_PXL);
 		check_finish(move, gm);
 		mlx_put_image_to_window(gm->mlx, gm->win, gm->p_up, gm->px * IMG_PXL,
-		  gm->py * IMG_PXL);
+			gm->py * IMG_PXL);
 		gm->moves++;
 		ft_putstr_fd("Llevas   ", 1);
 		ft_putnbr_fd(gm->moves, 1);
@@ -43,10 +43,10 @@ void	move_down(t_game *gm, int move)
 			gm->map[gm->py + 1][gm->px] = '0';
 		}
 		mlx_put_image_to_window(gm->mlx, gm->win, gm->back, gm->px * IMG_PXL,
-		  gm->py * IMG_PXL);
+			gm->py * IMG_PXL);
 		check_finish(move, gm);
 		mlx_put_image_to_window(gm->mlx, gm->win, gm->p_dn, gm->px * IMG_PXL,
-		  gm->py * IMG_PXL);
+			gm->py * IMG_PXL);
 		gm->moves++;
 		ft_putstr_fd("Llevas   ", 1);
 		ft_putnbr_fd(gm->moves, 1);
@@ -64,10 +64,10 @@ void	move_left(t_game *gm, int move)
 			gm->map[gm->py][gm->px - 1] = '0';
 		}
 		mlx_put_image_to_window(gm->mlx, gm->win, gm->back, gm->px * IMG_PXL,
-		  gm->py * IMG_PXL);
+			gm->py * IMG_PXL);
 		check_finish(move, gm);
 		mlx_put_image_to_window(gm->mlx, gm->win, gm->p_lf, gm->px * IMG_PXL,
-		  gm->py * IMG_PXL);
+			gm->py * IMG_PXL);
 		gm->moves++;
 		ft_putstr_fd("Llevas   ", 1);
 		ft_putnbr_fd(gm->moves, 1);
@@ -85,10 +85,10 @@ void	move_right(t_game *gm, int move)
 			gm->map[gm->py][gm->px + 1] = '0';
 		}
 		mlx_put_image_to_window(gm->mlx, gm->win, gm->back, gm->px * IMG_PXL,
-		  gm->py * IMG_PXL);
+			gm->py * IMG_PXL);
 		check_finish(move, gm);
 		mlx_put_image_to_window(gm->mlx, gm->win, gm->p_rg, gm->px * IMG_PXL,
-		  gm->py * IMG_PXL);
+			gm->py * IMG_PXL);
 		gm->moves++;
 		ft_putstr_fd("Llevas   ", 1);
 		ft_putnbr_fd(gm->moves, 1);

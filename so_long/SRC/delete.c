@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 17:56:25 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/11 21:57:25 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:39:07 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	pressed_key(int keycode, t_game *gm)
 {
 	if (keycode == ESC)
-		close_program(gm);
+		close_program(keycode, gm);
 	else if (keycode == UP || keycode == AUP)
 		move_up(gm, keycode);
 	else if (keycode == DOWN || keycode == ADOWN)
@@ -37,13 +37,32 @@ void	check_finish(int keycode, t_game *gm)
 		gm->px--;
 	else if (keycode == RIGHT || keycode == ARIGHT)
 		gm->px++;
-	if (gm->map[gm->py][gm->px] == 'E' && gm->collect == 0)
+	if (gm->map[gm->py][gm->px] == 'E')
+		ft_end(gm);
+}
+
+void	ft_end(t_game *gm)
+{
+	mlx_destroy_window(gm->mlx, gm->win);
+	if (gm->collect > 0)
+		ft_lose(gm);
+	else
 		ft_win(gm);
-/*	else if (gm->map[gm->py][gm->px] == 'E' && gm->collect != 0)
-		ft_lose(gm);*/
 }
 
-void	ft_win(t_game *gm)
+int	close_program(int keycode, t_game *gm)
+{
+	if (keycode > 0)
+	{
+		mlx_destroy_window(gm->mlx, gm->win);
+		free(gm->mlx);
+		free_mat(gm->map);
+		free(gm);
+	}
+	exit(0);
+}
+
+int	close_x(t_game *gm)
 {
 	mlx_destroy_window(gm->mlx, gm->win);
 	free(gm->mlx);
@@ -52,11 +71,3 @@ void	ft_win(t_game *gm)
 	exit(0);
 }
 
-int	close_program(t_game *gm)
-{
-	mlx_destroy_window(gm->mlx, gm->win);
-	free(gm->mlx);
-	free_mat(gm->map);
-	free(gm);
-	exit(0);
-}

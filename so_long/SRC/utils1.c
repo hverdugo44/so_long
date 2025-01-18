@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 21:33:56 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/11 14:18:03 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:58:46 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	free_error_map(t_game *map, char **copy)
 {
+	free(map->map_str);
 	free_mat(map->map);
 	free_mat(copy);
 	free(map);
@@ -24,19 +25,23 @@ void	handle_error(char **copy, char *str, t_game *map, int m)
 {
 	if (ft_strncmp(&str[ft_strlen(str) - 4], ".ber", 4) != 0)
 	{
-		perror("Map most be .ber");
+		perror("Error\nMap most be .ber");
 		free_error_map(map, copy);
 	}
-	if (size_map(&map) != 0)
+	if (size_map(&map) != 0
+		|| ((map->x + 1) * map->y) < (int)ft_strlen(map->map_str)
+		|| ((map->x + 1) * map->y) > (int)ft_strlen(map->map_str) + 1)
 	{
-		perror("Map size is wrong");
+		perror("Error\nMap size is wrong");
+		printf("X->		%dY->		%dX*Y->	%dLen->	%d", map->x, map->y, (map->x + 1) * map->y, (int)ft_strlen(map->map_str));
 		free_error_map(map, copy);
 	}
 	if (find_path(copy, &m, map->px, map->py) != 0)
 	{
-		perror("Invalid path");
+		perror("Error\nInvalid path");
 		free_error_map(map, copy);
 	}
+	free(map->map_str);
 }
 
 char	**copy_mat(char **str)

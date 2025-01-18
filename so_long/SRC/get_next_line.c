@@ -5,38 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 16:18:50 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/09 13:13:46 by hverdugo         ###   ########.fr       */
+/*   Created: 2024/08/26 11:04:23 by hverdugo          #+#    #+#             */
+/*   Updated: 2025/01/13 02:35:27 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INC/so_long.h"
+#include "../INC/get_next_line.h"
 
-static char	*ft_strjoint(char *s1, char *s2)
+size_t	ft_strlen1(const char *c)
 {
-	char	*str;
-	int		i;
-	int		j;
+	size_t	x;
 
-	i = 0;
-	j = 0;
-	if (s1 == NULL)
-		return (ft_strdup(s2));
-	str = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
-	if (str == NULL)
-		return (NULL);
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-	{
-		str[i + j] = s2[j];
-		j++;
-	}
-	free(s1);
-	return (str);
+	x = 0;
+	while (c[x])
+		x++;
+	return (x);
 }
 
 static char	*get_line(char *buff, int fd)
@@ -44,23 +27,22 @@ static char	*get_line(char *buff, int fd)
 	char	*temp;
 	int		bytes;
 
-	temp = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	temp = ft_calloc1(BUFFER_SIZE + 1, sizeof(char));
 	if (!temp)
 		return (NULL);
-	bytes = read(fd, temp, BUFFER_SIZE);
-	while (bytes != 0)
+	while (ft_strchar1(buff, '\n') == -1)
 	{
+		bytes = read(fd, temp, BUFFER_SIZE);
 		if (bytes == -1)
 		{
 			free(buff);
 			free(temp);
 			return (NULL);
 		}
-		buff = ft_strjoint(buff, temp);
-		ft_bzero(temp, BUFFER_SIZE);
-		if (ft_strchr(buff, 10) != NULL)
+		if (bytes == 0)
 			break ;
-		bytes = read(fd, temp, BUFFER_SIZE);
+		buff = ft_strjoin1(buff, temp);
+		ft_bzero1(temp, BUFFER_SIZE);
 	}
 	free(temp);
 	return (buff);
@@ -77,9 +59,9 @@ static char	*line(char *buff)
 	while (buff[i] && buff[i] != 10)
 		i++;
 	if (!buff[i])
-		linea = ft_calloc(i + 1, 1);
+		linea = ft_calloc1(i + 1, 1);
 	else
-		linea = ft_calloc(i + 2, 1);
+		linea = ft_calloc1(i + 2, 1);
 	if (!linea)
 		return (NULL);
 	i = 0;
@@ -95,27 +77,31 @@ static char	*line(char *buff)
 static char	*limpiar(char *buff)
 {
 	char	*dup;
-	int		x;
+	int		i;
+	int		j;
 
-	x = 0;
-	while (buff[x] && buff[x] != 10)
-		x++;
-	if (buff[x] == 0)
+	i = 0;
+	j = 0;
+	while (buff[i] && buff[i] != '\n')
+		i++;
+	if (buff[i] == '\0')
 	{
 		free(buff);
 		return (NULL);
 	}
-	x++;
-	dup = ft_strdup(&buff[x]);
+	dup = ft_calloc1(ft_strlen1(buff) - i + 1, sizeof(char));
 	if (!dup)
 		return (NULL);
+	i++;
+	while (buff[i] != 0)
+		dup[j++] = buff[i++];
 	free(buff);
 	return (dup);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buff = NULL;
+	static char	*buff;
 	char		*resultado;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)

@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:05:04 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/11 14:15:37 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:38:54 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	size_map(t_game **map)
 	return (0);
 }
 
-char	**do_map(char *str)
+char	**do_map(char *str, t_game *gm)
 {
 	int		fd;
 	char	*str1;
@@ -63,7 +63,7 @@ char	**do_map(char *str)
 	}
 	close(fd);
 	map1 = ft_split(map, '\n');
-	free(map);
+	gm->map_str = map;
 	return (map1);
 }
 
@@ -117,7 +117,7 @@ t_game	*evaluador(char *str)
 	int		m;
 
 	map = (t_game *)malloc(sizeof(t_game));
-	map->map = do_map(str);
+	map->map = do_map(str, map);
 	size_map(&map);
 	find_collect(map);
 	copy = copy_mat(map->map);

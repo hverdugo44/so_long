@@ -6,15 +6,15 @@
 #    By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/24 14:56:26 by hverdugo          #+#    #+#              #
-#    Updated: 2025/01/11 21:27:41 by hverdugo         ###   ########.fr        #
+#    Updated: 2025/01/16 13:19:43 by hverdugo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-SRC = SRC/get_next_line.c SRC/stack.c SRC/eval.c SRC/utils1.c SRC/main.c SRC/imagenes.c SRC/delete.c SRC/movments.c
+SRC = SRC/get_next_line.c SRC/stack.c SRC/eval.c SRC/utils1.c SRC/main.c SRC/imagenes.c SRC/delete.c SRC/movments.c SRC/get_next_line_utils.c SRC/end.c
 
-LIBFT = libft.a
+LIBFT = libft/libft.a
 
 INCLUDE = INC/so_long.h INC/libft.h
 
@@ -27,33 +27,36 @@ OFILES = $(SRC:.c=.o)
 all: mlx_compile libft_compile $(NAME)
 
 mlx_compile:
-	make -C mlx_linux
+	@echo "Compilando MLX"
+	@make -C mlx_linux
 
 libft_compile:
-	make -C libft
-	cp libft/libft.a .
+	@echo "Compilando libreria"
+	@make -C libft
 
 %.o: %.c $(INCLUDE)
-	$(CC) $(FLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	@echo "Creando O-Files"
+	@$(CC) $(FLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 $(NAME): $(OFILES) $(INCLUDE) Makefile
-	$(CC) $(OFILES) libft.a mlx_linux/libmlx.a mlx_linux/libmlx.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-
-/*$(NAME): $(OFILES) $(INCLUDE) Makefile
-	$(CC) $(OFILES) libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)*/
+	@echo "Creando Programa"
+	@$(CC) $(OFILES) $(LIBFT) mlx_linux/libmlx.a mlx_linux/libmlx.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 clean:
-	make clean -C libft
-	make clean -C mlx_linux
-	rm -rf $(OFILES)
+	@echo "Eliminando O-Files"
+	@make clean -C libft
+	@make clean -C mlx_linux
+	@rm -rf $(OFILES)
 
 fclean:
-	make fclean -C libft
-	make clean -C mlx_linux
-	rm -rf $(NAME) $(OFILES) libft.a
+	@echo "Eliminando Todo"
+	@make fclean -C libft
+	@make clean -C mlx_linux
+	@rm -rf $(NAME) $(OFILES)
 
 re:
-	make fclean
-	make all
+	@echo "Vamos otra vez"
+	@make fclean
+	@make all
 
 .PHONY: all, clean, fclean, re

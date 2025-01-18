@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:03:05 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/12 00:29:56 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:52:11 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ void	map_fill(t_game *gm, int x, int y)
 void	images(t_game *gm)
 {
 	int	i;
+	int	j;
+	int	k;
 
+	k = 720;
+	j = 1280;
 	i = IMG_PXL;
 	gm->p_up = mlx_xpm_file_to_image(gm->mlx, "textures/up.xpm", &i, &i);
 	gm->p_dn = mlx_xpm_file_to_image(gm->mlx, "textures/down.xpm", &i, &i);
@@ -60,4 +64,5 @@ void	images(t_game *gm)
 	gm->clct = mlx_xpm_file_to_image(gm->mlx, "textures/collect.xpm", &i, &i);
 	gm->esc = mlx_xpm_file_to_image(gm->mlx, "textures/exit.xpm", &i, &i);
 	gm->wall = mlx_xpm_file_to_image(gm->mlx, "textures/wall.xpm", &i, &i);
+	gm->winner = mlx_xpm_file_to_image(gm->mlx, "textures/win.xpm", &j, &k);
 }
