@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 11:14:56 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/18 11:32:35 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:44:12 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int argc, char **argv)
 		return (0);
 	game = evaluador(argv[1]);
 	screen(game);
+	check_chars(game);
 	images(game);
 	images_to_win(game);
 	mlx_hook(game->win, 17, 0, close_x, game);

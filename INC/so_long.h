@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:10:10 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/22 12:23:54 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:43:40 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	free_error_map(t_game *map, char **copy);
 void	handle_error(char **copy, char *str, t_game *map, int m);
 void	map_fill(t_game *gm, int x, int y);
 void	free_mat(char **str);
+void	check_chars(t_game *gm);
 
 void	images_to_win(t_game *gm);
 void	images(t_game *gm);

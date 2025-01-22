@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 21:33:56 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/22 12:23:28 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:48:31 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,28 @@ char	**copy_mat(char **str)
 		i++;
 	}
 	return (copy);
+}
+
+void	check_chars(t_game *gm)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (gm->map[i])
+	{
+		j = 0;
+		while (gm->map[i][j])
+		{
+			if (gm->map[i][j] != 'P' && gm->map[i][j] != '1'
+				&& gm->map[i][j] != 'C' && gm->map[i][j] != 'E'
+				&& gm->map[i][j] != '0')
+			{
+				perror("Error\nCharacters not accepted\n");
+				close_x(gm);
+			}
+			j++;
+		}
+		i++;
+	}
 }
