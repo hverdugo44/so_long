@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 21:33:56 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/22 12:48:31 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:12:55 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	handle_error(char **copy, char *str, t_game *map, int m)
 	}
 	if (map->p != 1 || map->e != 1)
 	{
-		perror("Error\nMore than 1 player or more than 1 exit");
+		perror("Error\nWrong number of player or exit");
 		free_error_map(map, copy);
 	}
 	free(map->map_str);
@@ -81,7 +81,9 @@ void	check_chars(t_game *gm)
 				&& gm->map[i][j] != '0')
 			{
 				perror("Error\nCharacters not accepted\n");
-				close_x(gm);
+				free_mat(gm->map);
+				free(gm);
+				exit (1);
 			}
 			j++;
 		}
