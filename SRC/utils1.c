@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 21:33:56 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/22 14:12:55 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:45:54 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,15 @@ void	handle_error(char **copy, char *str, t_game *map, int m)
 		perror("Error\nMap size is wrong");
 		free_error_map(map, copy);
 	}
-	if (find_path(copy, &m, map->px, map->py) != 0)
-	{
-		perror("Error\nInvalid path");
-		free_error_map(map, copy);
-	}
 	if (map->p != 1 || map->e != 1)
 	{
 		perror("Error\nWrong number of player or exit");
+		free_error_map(map, copy);
+	}
+	if (find_path(copy, &m, map->px, map->py)
+		&& find_path2(copy, &m, map->px, map->py) != 0)
+	{
+		perror("Error\nInvalid path");
 		free_error_map(map, copy);
 	}
 	free(map->map_str);
@@ -89,4 +90,20 @@ void	check_chars(t_game *gm)
 		}
 		i++;
 	}
+}
+
+int	find_path2(char **map, int *m, int x, int y)
+{
+	if (map[y][x] == 'E')
+		m[0]--;
+	map[y][x] = 'z';
+	if (map[y][x - 1] != '1' && map[y][x - 1] != 'z')
+		find_path2(map, m, x - 1, y);
+	if (map[y][x + 1] != '1' && map[y][x + 1] != 'z')
+		find_path2(map, m, x + 1, y);
+	if (map[y + 1][x] != '1' && map[y + 1][x] != 'z')
+		find_path2(map, m, x, y + 1);
+	if (map[y - 1][x] != '1' && map[y - 1][x] != 'z')
+		find_path2(map, m, x, y - 1);
+	return (*m);
 }

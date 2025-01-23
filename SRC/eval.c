@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:05:04 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/22 14:05:34 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:39:44 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,19 @@ void	find_collect(t_game *game)
 	}
 }
 
-int	find_path(char **map, int *collect, int px, int py)
+int	find_path(char **map, int *collect, int x, int y)
 {
-	if (map[py][px] == 'C' || map[py][px] == 'E')
+	if (map[y][x] == 'C')
 		collect[0]--;
-	map[py][px] = 'x';
-	if (map[py][px - 1] != '1' && map[py][px - 1] != 'x')
-		find_path(map, collect, px - 1, py);
-	if (map[py][px + 1] != '1' && map[py][px + 1] != 'x')
-		find_path(map, collect, px + 1, py);
-	if (map[py + 1][px] != '1' && map[py + 1][px] != 'x')
-		find_path(map, collect, px, py + 1);
-	if (map[py - 1][px] != '1' && map[py - 1][px] != 'x')
-		find_path(map, collect, px, py - 1);
+	map[y][x] = 'x';
+	if (map[y][x - 1] != '1' && map[y][x - 1] != 'E' && map[y][x - 1] != 'x')
+		find_path(map, collect, x - 1, y);
+	if (map[y][x + 1] != '1' && map[y][x + 1] != 'E' && map[y][x + 1] != 'x')
+		find_path(map, collect, x + 1, y);
+	if (map[y + 1][x] != '1' && map[y + 1][x] != 'E' && map[y + 1][x] != 'x')
+		find_path(map, collect, x, y + 1);
+	if (map[y - 1][x] != '1' && map[y - 1][x] != 'E' && map[y - 1][x] != 'x')
+		find_path(map, collect, x, y - 1);
 	return (*collect);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hverdugo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:10:10 by hverdugo          #+#    #+#             */
-/*   Updated: 2025/01/22 12:43:40 by hverdugo         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:44:30 by hverdugo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ char	*get_next_line(int fd);
 
 t_game	*evaluador(char *str);
 int		size_map(t_game **map);
-int		find_path(char **map, int *collect, int px, int py);
+int		find_path(char **map, int *collect, int x, int y);
+int		find_path2(char **map, int *m, int x, int y);
 int		mat_len(char **mat);
 char	**do_map(char *str, t_game *map);
 char	**copy_mat(char **str);
